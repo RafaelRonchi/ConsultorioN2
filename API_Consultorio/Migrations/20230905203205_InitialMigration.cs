@@ -12,25 +12,6 @@ namespace ConsultorioN2.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MedicoDTO",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CRM = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Especialidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataDeNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MedicoDTO", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Medicos",
                 columns: table => new
                 {
@@ -50,30 +31,13 @@ namespace ConsultorioN2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PacienteDTO",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataDeNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PacienteDTO", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Pacientes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Idade = table.Column<int>(type: "int", nullable: false),
                     DataDeNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -101,15 +65,15 @@ namespace ConsultorioN2.Migrations
                 {
                     table.PrimaryKey("PK_Consultas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Consultas_MedicoDTO_MedicoID",
+                        name: "FK_Consultas_Medicos_MedicoID",
                         column: x => x.MedicoID,
-                        principalTable: "MedicoDTO",
+                        principalTable: "Medicos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Consultas_PacienteDTO_PacienteID",
+                        name: "FK_Consultas_Pacientes_PacienteID",
                         column: x => x.PacienteID,
-                        principalTable: "PacienteDTO",
+                        principalTable: "Pacientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -136,12 +100,6 @@ namespace ConsultorioN2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pacientes");
-
-            migrationBuilder.DropTable(
-                name: "MedicoDTO");
-
-            migrationBuilder.DropTable(
-                name: "PacienteDTO");
         }
     }
 }

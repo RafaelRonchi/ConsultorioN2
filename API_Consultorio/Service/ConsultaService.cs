@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using API_Consultorio.Model;
+using System.Runtime.CompilerServices;
 
 namespace API_Consultorio.Service
 {
@@ -23,6 +24,9 @@ namespace API_Consultorio.Service
 
             _context.Consultas.Add(consulta1);
             await _context.SaveChangesAsync();
+
+            consulta1.Paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Id == consulta1.PacienteID);
+            consulta1.Medico = await _context.Medicos.FindAsync(consulta1.MedicoID);
             return consulta1;
         }
 
@@ -38,16 +42,19 @@ namespace API_Consultorio.Service
 
         public async Task<List<Consulta>> GetConsultasByData(DateTime data)
         {
-            var consultas = await _context.Consultas.Where(c => c.Data == data)
-                .ToListAsync();
-            if(consultas == null) return null;
+            var consultas = await _context.Consultas
+       .Where(c => c.Data == data)
+       .Include(c => c.Paciente) // Carrega o paciente relacionado
+       .Include(c => c.Medico)   // Carrega o médico relacionado
+       .ToListAsync();
             return consultas;
-
         }
 
         public async Task<List<Consulta>> GetConsultasByMedico(int id)
         {
             var consultas = await _context.Consultas.Where(c => c.MedicoID == id)
+                .Include(c => c.Paciente) // Carrega o paciente relacionado
+       .Include(c => c.Medico)   // Carrega o médico relacionado
                 .ToListAsync();
             if (consultas == null) return null;
             return consultas;
@@ -56,6 +63,8 @@ namespace API_Consultorio.Service
         public async Task<List<Consulta>> GetConsultasByPaciente(int id)
         {
             var consultas = await _context.Consultas.Where(c => c.PacienteID == id)
+                .Include(c => c.Paciente) // Carrega o paciente relacionado
+       .Include(c => c.Medico)   // Carrega o médico relacionado
                 .ToListAsync();
             if (consultas == null) return null;
             return consultas;
