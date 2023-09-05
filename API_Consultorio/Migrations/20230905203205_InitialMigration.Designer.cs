@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConsultorioN2.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230904190829_InitialMigration")]
+    [Migration("20230905203205_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -118,6 +118,9 @@ namespace ConsultorioN2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Idade")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -135,91 +138,15 @@ namespace ConsultorioN2.Migrations
                     b.ToTable("Pacientes");
                 });
 
-            modelBuilder.Entity("ConsultorioN2.DTO.MedicoDTO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CRM")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataDeNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Endereco")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Especialidade")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sexo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MedicoDTO");
-                });
-
-            modelBuilder.Entity("ConsultorioN2.DTO.PacienteDTO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataDeNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Endereco")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sexo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PacienteDTO");
-                });
-
             modelBuilder.Entity("API_Consultorio.Model.Consulta", b =>
                 {
-                    b.HasOne("ConsultorioN2.DTO.MedicoDTO", "Medico")
+                    b.HasOne("API_Consultorio.Model.Medico", "Medico")
                         .WithMany()
                         .HasForeignKey("MedicoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ConsultorioN2.DTO.PacienteDTO", "Paciente")
+                    b.HasOne("API_Consultorio.Model.Paciente", "Paciente")
                         .WithMany()
                         .HasForeignKey("PacienteID")
                         .OnDelete(DeleteBehavior.Cascade)

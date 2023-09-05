@@ -8,9 +8,9 @@
         public string Prescricao { get; set; } = string.Empty;
 
         public int MedicoID { get; set; }
-        public MedicoDTO Medico { get; set; }
+        public Medico Medico { get; set; }
 
         public int PacienteID { get; set; }
-        public PacienteDTO Paciente { get; set; }
+        public Paciente Paciente { get; set; }
 }
 }

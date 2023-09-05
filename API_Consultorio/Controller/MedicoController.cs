@@ -15,7 +15,7 @@ namespace API_Consultorio.Controller
         }
 
         [HttpGet]
-        [Route("?especialidade={especialidade}")]
+        [Route("especialidade={especialidade}")]
         public async Task<ActionResult<IEnumerable<Medico>>> ListarMedicoEspecialidade(string especialidade)
         {
             var medicos = await _medicoService.ListarMedicoEspecialidade(especialidade);
@@ -38,7 +38,7 @@ namespace API_Consultorio.Controller
             return await _medicoService.CadastrarMedico(medico);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("especialidade/{id}")]
         public async Task<ActionResult<Medico>> AtualizarEspecialidadeMedico(int id, string especialidade)
         {

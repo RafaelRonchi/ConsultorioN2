@@ -30,7 +30,7 @@ namespace API_Consultorio.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("server=G15\\SQLEXPRESS;database=consultorioDb;trusted_connection=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("server=DESKTOP-H7EP5Q1\\SQLEXPRESS;database=consultorioDb;trusted_connection=true;TrustServerCertificate=True");
         }
     }
 }

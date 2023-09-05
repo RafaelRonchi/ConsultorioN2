@@ -2,14 +2,14 @@
 {
     public interface IConsultaService
     {
-        Task<string> AgendarConsulta(ConsultaPostDTO consulta);
+        Task<Consulta> AgendarConsulta(ConsultaPostDTO consulta);
 
         Task<List<Consulta>> GetConsultasByMedico(int id);
         Task<List<Consulta>> GetConsultasByPaciente(int id);
 
         Task<List<Consulta>> GetConsultasByData(DateTime data);
 
-        Task<string> DeleteConsulta(int id);
+        Task<Consulta> DeleteConsulta(int id);
 
 
         

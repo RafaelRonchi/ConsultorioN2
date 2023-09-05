@@ -1,4 +1,6 @@
-﻿namespace API_Consultorio.Service
+﻿using API_Consultorio.Model;
+
+namespace API_Consultorio.Service
 {
     public class PacienteService : IPacienteService
     {
@@ -13,7 +15,7 @@
             var paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Id == id);
             if (paciente == null) { return null; }
             paciente.Endereco = endereco.Endereco;
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return paciente;
         }
@@ -23,7 +25,7 @@
             var paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Id == id);
             if (paciente == null) { return null; }
             paciente.Telefone = tel.Telefone;
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return paciente;
         }
@@ -49,6 +51,14 @@
                 .ToListAsync();
 
             return pacientes;
+        }
+
+        public async Task<List<Paciente>> ListarTodosPaciente()
+        {
+            var pacientes = await _context.Pacientes.ToListAsync();
+            if (pacientes == null) return null;
+            return pacientes;
+
         }
     }
 }
