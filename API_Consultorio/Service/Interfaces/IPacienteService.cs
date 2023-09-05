@@ -9,6 +9,9 @@
     
         //metodo extra da dupla
         Task<Paciente> GetPacientePorNome(string nome);
-    
+
+        Task<List<Paciente>> ListarTodosPaciente();
+
+
     }
 }
