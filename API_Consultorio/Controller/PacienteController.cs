@@ -42,7 +42,7 @@ namespace API_Consultorio.Controller
         }
 
         [HttpGet]
-        [Route("idade={idade}")]
+        [Route("nome={nome}")]
         public async Task<ActionResult<Paciente>> GetPacientePorNome(string nome)
         {
             var pacienteR = await _pacienteService.GetPacientePorNome(nome);
